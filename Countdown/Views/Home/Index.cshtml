@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Countdown";
+}
+
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="@(Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["switchInterval"]))" style="margin-top: 80px;">
+
+    <ol class="carousel-indicators">
+        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+    </ol>
+
+    <div class="carousel-inner" style="width: 100%">
+        <div class="item active">
+            <img src="~/images/geri.jpg" alt="...">
+        </div>
+        <div class="item">
+            <img src="~/images/egr.jpg" alt="...">
+        </div>
+        <div class="item">
+            <img src="~/images/geri.jpg" alt="...">
+        </div>
+        <div class="item">
+            <img src="~/images/manz.jpg" alt="...">
+        </div>
+    </div>
+
+    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+</div>
+
+<div class="row centered text-center" id="myCounter"></div>
+
+<script type="text/javascript">
+    $(function () {
+        var $section = $('section');
+        $(window).on("resize", function () {
+            var dif = Math.max($(window).height() - $section.height(), 0);
+            var padding = Math.floor(dif / 2) + 'px';
+            $section.css({ 'padding-top': padding, 'padding-bottom': padding });
+        }).trigger("resize");
+        $('#myCounter').mbComingsoon({
+            expiryDate: new Date(
+                @(Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["year"])),
+                @(Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["month"])),
+                @(Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["day"])),
+                @(Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["hour"])),
+                @(Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["minute"]))
+                ),
+            speed: 800
+        });
+        setTimeout(function () {
+            $(window).resize();
+        }, 200);
+    });
+
+</script>
